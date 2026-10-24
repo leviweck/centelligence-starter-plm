@@ -1,0 +1,4 @@
+fastapi==0.115.*
+httpx
+pytest
+numpy<3

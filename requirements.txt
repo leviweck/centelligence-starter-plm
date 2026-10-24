@@ -1,0 +1,2 @@
+# Runs on your computer (the Modal image installs its own copies)
+modal>=1.0

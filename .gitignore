@@ -1,0 +1,21 @@
+# secrets: never commit
+*.token
+*.key
+*.pem
+.env
+.env.*
+secrets/
+*.secret.json
+# data and local state
+*.sqlite
+*.sqlite3
+*.db
+*.log
+.notes-search-push.json
+push-state-*.json
+snapshots/
+# python
+__pycache__/
+*.pyc
+.venv*/
+.pytest_cache/

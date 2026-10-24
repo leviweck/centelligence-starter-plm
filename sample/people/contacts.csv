@@ -1,0 +1,9 @@
+contact_id,name,organization,role,type,reach_by,email,phone,stage,identity,last_confirmed,source,note_path,updated_at,merged_into
+c-jane-doe,Jane Doe,Example Co,Operations Lead,person,email,jane@example.com,555-0101,talked,confirmed,2026-10-01,intro call,people/notes/c-jane-doe.md,2026-10-01,
+c-jane-d,Jane D.,Example Co,,person,email,jane@example.com,,met,unconfirmed,,conference badge scan,people/notes/c-jane-d.md,2026-09-12,c-jane-doe
+c-sam-sample,Sam Sample,Sample Logistics,Fleet Manager,person,phone,sam@example.org,555-0102,working together,owner-said,2026-09-20,owner,people/notes/c-sam-sample.md,2026-09-20,
+c-s-sample,S. Sample,Sample Logistics,,person,phone,,555-0102,met,unconfirmed,,old phone export,people/notes/c-s-sample.md,2026-08-01,merged into c-sam-sample
+c-alex-example,Alex Example,Demo Labs,Founder,person,text,alex@example.net,555-0103,opportunity,confirmed,2026-10-05,email thread,people/notes/c-alex-example.md,2026-10-05,
+c-alex-example-2,Alex Example,Other Demo Inc,Analyst,person,email,alex@example.net,,met,unconfirmed,,newsletter signup,people/notes/c-alex-example-2.md,2026-10-06,
+o-example-co,Example Co,,,organization,email,info@example.com,,working together,confirmed,2026-10-01,website,people/notes/o-example-co.md,2026-10-01,
+c-pat-placeholder,Pat Placeholder,Acme Widgets,Buyer,person,email,pat@example.com,555-0104,met,unconfirmed,,trade show,people/notes/c-pat-placeholder.md,2026-10-10,
