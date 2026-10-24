@@ -145,3 +145,7 @@ the index can be rebuilt any time with `push.py --full`.
 The API container shuts down after 5 idle minutes. You pay Modal for the minutes your containers
 run and for storage. Keep a budget set in Modal. Real costs depend on how many notes you have and
 how often you send them.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
