@@ -275,6 +275,32 @@ def test_push_git_mode_and_folder_mode(tmp_path, monkeypatch):
     assert oi2().counts()["contacts_active"] == 6  # contacts file always goes
 
 
+def test_push_skips_plm_folder_unless_included(tmp_path):
+    import push
+    brain = tmp_path / "brain"
+    shutil.copytree(SAMPLE, brain)
+    (brain / "plm" / "sample" / "notes").mkdir(parents=True)
+    (brain / "plm" / "README.md").write_text("# Starter readme\n")
+    (brain / "plm" / "sample" / "notes" / "fake.md").write_text("# Fake\n")
+    (brain / "plmnotes").mkdir()
+    (brain / "plmnotes" / "keep.md").write_text("# Not the plm folder\n")
+    for mode in ("folder", "git"):
+        if mode == "git":
+            g = lambda *a: subprocess.run(["git", "-C", str(brain), *a], check=True, capture_output=True)
+            g("init", "-q"); g("add", ".")
+            g("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "one")
+            files = push.changes_git(str(brain), {}, [], "people/contacts.csv", True)[1]
+            files_inc = push.changes_git(str(brain), {}, ["plm"], "people/contacts.csv", True)[1]
+        else:
+            files = push.changes_folder(str(brain), {}, [], "people/contacts.csv", True)[1]
+            files_inc = push.changes_folder(str(brain), {}, ["plm/"], "people/contacts.csv", True)[1]
+        # default: plm/ skipped, a folder that only starts with "plm" is kept
+        assert not any(p.startswith("plm/") for p in files), mode
+        assert "plmnotes/keep.md" in files and "notes/ideas.md" in files, mode
+        # --include naming plm/ still picks it up (plus the contacts file, which always goes)
+        assert set(files_inc) == {"plm/README.md", "plm/sample/notes/fake.md", "people/contacts.csv"}, mode
+
+
 def test_admin_tokens_saved_private_and_never_printed(tmp_path, capsys):
     import admin
     hashes = admin.make_tokens("demo-app", dry_run=False, config_root=str(tmp_path))

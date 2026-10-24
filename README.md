@@ -117,7 +117,9 @@ budget set (Modal: Settings → Usage & Billing).
      --token-file ~/.config/$NS_APP_NAME/write.token
    ```
    `--source` can be a git repository (sends what changed since the last send, read from the
-   last commit) or a plain folder. `--include notes,people` limits which folders go. The
+   last commit) or a plain folder. A folder named `plm/` at the top of the source (where this starter sits inside your notes
+   repository) is skipped by default, so its README and fake samples are never sent as notes.
+   `--include notes,people` limits which folders go, and overrides that skip. The
    contacts file (`--contacts`, default `people/contacts.csv`) always goes when it changed.
 9. **Ask a question.**
    ```

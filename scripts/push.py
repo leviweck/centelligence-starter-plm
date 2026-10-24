@@ -36,12 +36,24 @@ def git(src, *args) -> bytes:
     return subprocess.run(["git", "-C", src, *args], check=True, capture_output=True).stdout
 
 
+# Folders skipped when --include is not given: the PLM's own code folder, so its
+# README and fake samples are never sent as your notes. --include overrides this.
+DEFAULT_SKIP = ("plm",)
+
+
+def _under(path: str, folder: str) -> bool:
+    folder = folder.strip("/")
+    return path == folder or path.startswith(folder + "/")
+
+
 def wanted(path: str, include: list[str], contacts: str) -> bool:
     if path == contacts:
         return True
     if not path.endswith(SUFFIXES):
         return False
-    return not include or any(path == i or path.startswith(i.rstrip("/") + "/") for i in include)
+    if include:
+        return any(_under(path, i) for i in include)
+    return not any(_under(path, d) for d in DEFAULT_SKIP)
 
 
 def changes_git(src, state, include, contacts, full):
@@ -111,7 +123,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", required=True, help="notes folder or git repository")
     ap.add_argument("--mode", choices=["auto", "git", "folder"], default="auto")
-    ap.add_argument("--include", default="", help="comma-separated folders to send (default: all)")
+    ap.add_argument("--include", default="", help="comma-separated folders to send (default: all except plm/)")
     ap.add_argument("--contacts", default="people/contacts.csv")
     ap.add_argument("--url", default=os.environ.get("NS_URL", ""))
     ap.add_argument("--token-file", default=os.environ.get("NS_WRITE_TOKEN_FILE", ""))
