@@ -104,7 +104,7 @@ budget set (Modal: Settings → Usage & Billing).
    ```
 5. **Make your tokens.** `python scripts/admin.py make-tokens --app $NS_APP_NAME`
    Tokens are saved in `~/.config/$NS_APP_NAME/read.token` and `write.token` (permission 600).
-   Only their fingerprints go to Modal. Never paste a token into chat, notes or commits.
+   Only their fingerprints go to Modal. Never paste a token into chat, notes, or commits.
 6. **Deploy.** `modal deploy app.py`
    The first deploy builds the image and downloads the embedding model into it, so it takes a
    few minutes. Copy the web address that ends in `.modal.run`.
